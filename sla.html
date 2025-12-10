@@ -3,445 +3,668 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLA Research Timeline</title>
+    <title>SLA Research * Timeline</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #f8f9fa;
             color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            line-height: 1.5;
+            padding: 0;
+            max-width: 100%;
+            overflow-x: hidden;
         }
         
         .container {
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin-bottom: 30px;
+            padding: 0 15px;
+            max-width: 100%;
         }
         
-        header {
-            background: linear-gradient(90deg, #2c3e50, #4a6491);
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4a6fa5, #2c3e50);
             color: white;
-            padding: 30px;
+            padding: 25px 15px;
             text-align: center;
-            border-bottom: 5px solid #f39c12;
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
             margin-bottom: 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
         
         .presenters {
-            font-size: 1.1rem;
+            font-size: 1rem;
             background: rgba(255, 255, 255, 0.15);
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 8px 15px;
+            border-radius: 50px;
             display: inline-block;
+            margin-top: 10px;
         }
         
-        .timeline {
+        /* Navigation Menu */
+        .nav-menu {
             display: flex;
-            flex-direction: column;
-            position: relative;
-            padding: 40px 0;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            padding: 0 10px;
         }
         
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50px;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, #3498db, #9b59b6, #e74c3c);
-            border-radius: 2px;
-        }
-        
-        .era {
-            display: flex;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .year {
-            width: 100px;
-            text-align: right;
-            padding-right: 20px;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
             color: #2c3e50;
-        }
-        
-        .content {
-            flex: 1;
-            padding: 25px;
-            margin-left: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .content::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 30px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 4px solid white;
-            z-index: 2;
-        }
-        
-        .behaviorism .content {
-            border-left: 5px solid #3498db;
-        }
-        
-        .behaviorism .content::before {
-            background-color: #3498db;
-        }
-        
-        .cognitivism .content {
-            border-left: 5px solid #2ecc71;
-        }
-        
-        .cognitivism .content::before {
-            background-color: #2ecc71;
-        }
-        
-        .constructivism .content {
-            border-left: 5px solid #9b59b6;
-        }
-        
-        .constructivism .content::before {
-            background-color: #9b59b6;
-        }
-        
-        .krashen .content {
-            border-left: 5px solid #e74c3c;
-        }
-        
-        .krashen .content::before {
-            background-color: #e74c3c;
-        }
-        
-        .interaction .content {
-            border-left: 5px solid #f39c12;
-        }
-        
-        .interaction .content::before {
-            background-color: #f39c12;
-        }
-        
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
+            gap: 5px;
         }
         
-        h2 i {
-            margin-right: 10px;
+        .nav-btn.active {
+            background: #4a6fa5;
+            color: white;
         }
         
-        .theorist {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-bottom: 10px;
+        .nav-btn i {
+            font-size: 0.9rem;
+        }
+        
+        /* Content Sections */
+        .section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
         
-        .example-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #ddd;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .example-title {
-            font-weight: bold;
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .section-title-text {
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #2c3e50;
+        }
+        
+        .section-year {
+            color: #7f8c8d;
+            font-weight: 600;
             margin-bottom: 5px;
         }
         
-        .hypotheses {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
-        .hypothesis {
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-            padding: 15px;
+        .section-content p {
+            margin-bottom: 15px;
+        }
+        
+        .theorist {
+            color: #4a6fa5;
+            font-weight: 600;
+            font-style: italic;
+            margin: 15px 0 10px;
+            display: block;
+        }
+        
+        /* Examples */
+        .example-box {
+            background: #f8f9fa;
             border-radius: 10px;
-            flex: 1;
-            min-width: 200px;
-            border: 1px solid #e0e0e0;
+            padding: 18px;
+            margin: 20px 0;
+            border-left: 4px solid #4a6fa5;
         }
         
-        .hypothesis h3 {
-            color: #d35400;
+        .example-title {
+            font-weight: 700;
+            color: #2c3e50;
             margin-bottom: 8px;
-            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 0 0 20px 20px;
+        .example-title i {
+            color: #4a6fa5;
+        }
+        
+        /* Krashen's Hypotheses Cards */
+        .hypotheses-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .conclusion {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto;
+        .hypothesis-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
         }
         
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 30px;
-            }
-            
-            .year {
-                width: 70px;
-                font-size: 1rem;
-            }
-            
-            .content {
-                margin-left: 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
+        .hypothesis-card h3 {
+            color: #4a6fa5;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
+        
+        /* List Styling */
+        .section-content ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        
+        .section-content li {
+            margin-bottom: 8px;
+        }
+        
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .conclusion p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Timeline Indicator */
+        .timeline-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 30px;
+        }
+        
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d1d8e0;
+            transition: all 0.3s;
+        }
+        
+        .timeline-dot.active {
+            background: #4a6fa5;
+            transform: scale(1.2);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaeaea;
+            margin-top: 20px;
+        }
+        
+        /* Color coding for sections */
+        .behaviorism .section-icon { background: #3498db; }
+        .cognitivism .section-icon { background: #2ecc71; }
+        .universal .section-icon { background: #9b59b6; }
+        .constructivism .section-icon { background: #e74c3c; }
+        .krashen .section-icon { background: #f39c12; }
+        .interaction .section-icon { background: #1abc9c; }
+        .conclusion-section .section-icon { background: #2c3e50; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>The Development of SLA Research Over Time</h1>
-            <div class="subtitle">A Historical Timeline of Key Theories and Hypotheses</div>
+        <!-- Header -->
+        <div class="header">
+            <h1>SLA Research Timeline</h1>
+            <p>The Development of Second Language Acquisition Theories</p>
             <div class="presenters">
-                <i class="fas fa-users"></i> Zebeir Ahmed // Labiad Hibat Allah Amina
-            </div>
-        </header>
-        
-        <div class="timeline">
-            <!-- Introduction -->
-            <div class="era">
-                <div class="year">Introduction</div>
-                <div class="content">
-                    <h2><i class="fas fa-language"></i> Language Learning & Human Communication</h2>
-                    <p>Language learning has always been an important part of human communication. Over the years, researchers have tried to understand how people learn a second language and help them improve. Different theories have appeared, each offering a unique perspective on the learning process. These theories have shaped the approaches, methods, and techniques used to understand second language acquisition.</p>
-                    <p>Key theoretical perspectives include:</p>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li><strong>Behaviorism</strong> - focused on habit formation</li>
-                        <li><strong>Cognitivism</strong> - emphasized mental processing</li>
-                        <li><strong>Constructivism</strong> - highlighted active learning</li>
-                    </ul>
-                    <p>Important hypotheses include Universal Grammar, the Input Hypothesis, the Interaction Hypothesis, the Output Hypothesis, Sociocultural Theory, and the Affective Filter Hypothesis.</p>
-                </div>
-            </div>
-            
-            <!-- Behaviorism -->
-            <div class="era behaviorism">
-                <div class="year">1940s-1950s</div>
-                <div class="content">
-                    <h2><i class="fas fa-redo"></i> Behaviorism</h2>
-                    <span class="theorist">B.F. Skinner (1957)</span>
-                    <p>According to behaviorist theory, Skinner equated learning a language to verbal behavior. He believed that language acquisition, like any other behavior, can be observed rather than trying to explain the mental systems underlying these behaviors. Children are born with a "blank slate" (tabula rasa) and acquire L1 through stimuli and conditioned responses through reinforcement.</p>
-                    
-                    <div class="example-box">
-                        <div class="example-title">Behaviorist Example:</div>
-                        <ul>
-                            <li>Child hears "I want milk" repeatedly and says it</li>
-                            <li>Adult gives milk (reinforcement)</li>
-                            <li>Learning happens through repetition and reward</li>
-                        </ul>
-                    </div>
-                    
-                    <p>This view was famously challenged by Noam Chomsky in the 1950s and 1960s. He argued that behaviorism could not explain how children produce new, grammatically correct sentences they've never heard before, since simple imitation and reinforcement cannot account for creativity in language.</p>
-                </div>
-            </div>
-            
-            <!-- Universal Grammar -->
-            <div class="era cognitivism">
-                <div class="year">1950s-1960s</div>
-                <div class="content">
-                    <h2><i class="fas fa-brain"></i> Universal Grammar</h2>
-                    <span class="theorist">Noam Chomsky</span>
-                    <p>Chomsky proposed that humans are born with an innate Universal Grammar (UG) — a biological blueprint containing the basic principles common to all languages. According to this theory, children do not learn language solely from experience; instead, they activate and adjust the parameters of UG based on the specific language they are exposed to.</p>
-                    
-                    <div class="example-box">
-                        <div class="example-title">Universal Grammar Example:</div>
-                        <ul>
-                            <li>Child hears "The dog chased the cat" once</li>
-                            <li>Later, they correctly say "The cat chased the dog" without being taught</li>
-                            <li>Shows understanding of grammar rules and ability to create new sentences</li>
-                        </ul>
-                    </div>
-                    
-                    <p>This idea forms the foundation of Generative Grammar (GG), which focuses on the underlying rules and structures that allow humans to generate an infinite number of sentences from a finite set of elements.</p>
-                </div>
-            </div>
-            
-            <!-- Cognitivism -->
-            <div class="era cognitivism">
-                <div class="year">1960s-1970s</div>
-                <div class="content">
-                    <h2><i class="fas fa-cogs"></i> Cognitivism</h2>
-                    <span class="theorist">Jean Piaget</span>
-                    <p>Piaget placed language acquisition within the context of a child's cognitive development. He argued that a child has to understand a concept before they can acquire the language form that expresses that concept. He proposed four stages of cognitive development:</p>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li><strong>Pre-language stage</strong> (3-10 months): Cooing and babbling</li>
-                        <li><strong>Holophrastic stage</strong> (12-18 months): Single words</li>
-                        <li><strong>Two-word stage</strong> (18-20 months): Two-word combinations</li>
-                        <li><strong>Telegraphic speech stage</strong> (before age 3): Short, simple sentences</li>
-                    </ul>
-                    <p>Piaget's theory states that children's language reflects the development of their logical thinking and reasoning skills in stages.</p>
-                </div>
-            </div>
-            
-            <!-- Constructivism -->
-            <div class="era constructivism">
-                <div class="year">1970s-1980s</div>
-                <div class="content">
-                    <h2><i class="fas fa-hands-helping"></i> Constructivism</h2>
-                    <span class="theorist">Lev Vygotsky & Jerome Bruner</span>
-                    <p>Constructivism emerged as a reaction against behaviorist approaches, emphasizing that learners actively construct knowledge using their prior experiences. Vygotsky highlighted the social nature of learning, introducing the concept of the <strong>Zone of Proximal Development (ZPD)</strong>, where learners achieve more with guidance than alone.</p>
-                    <p>Bruner promoted discovery learning, encouraging learners to explore language rules themselves rather than relying solely on explicit instruction. Classrooms began to focus on authentic, meaningful tasks such as role-plays, dialogues, and project-based activities.</p>
-                    <p>Constructivist theory stressed that language learning is an active, social, and contextually situated process.</p>
-                </div>
-            </div>
-            
-            <!-- Krashen's Hypotheses -->
-            <div class="era krashen">
-                <div class="year">1970s-1980s</div>
-                <div class="content">
-                    <h2><i class="fas fa-lightbulb"></i> Krashen's Hypotheses</h2>
-                    <span class="theorist">Stephen Krashen</span>
-                    <p>Krashen proposed a series of influential hypotheses about second language acquisition, focusing on the difference between acquiring a language naturally and learning it formally.</p>
-                    
-                    <div class="hypotheses">
-                        <div class="hypothesis">
-                            <h3>Acquisition-Learning Hypothesis</h3>
-                            <p>Acquisition occurs subconsciously through meaningful communication, while learning is a conscious process of studying rules.</p>
-                        </div>
-                        
-                        <div class="hypothesis">
-                            <h3>Monitor Hypothesis</h3>
-                            <p>Learned knowledge acts as a monitor to correct or edit language output.</p>
-                        </div>
-                        
-                        <div class="hypothesis">
-                            <h3>Input Hypothesis</h3>
-                            <p>Learners progress when they receive comprehensible input slightly beyond their current level (i+1).</p>
-                        </div>
-                        
-                        <div class="hypothesis">
-                            <h3>Natural Order Hypothesis</h3>
-                            <p>Language features are acquired in a predictable sequence, regardless of the learner's age or first language.</p>
-                        </div>
-                        
-                        <div class="hypothesis">
-                            <h3>Affective Filter Hypothesis</h3>
-                            <p>Emotions, motivation, and anxiety play a crucial role in facilitating or blocking language acquisition.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Interaction-Based Theories -->
-            <div class="era interaction">
-                <div class="year">1980s-1990s</div>
-                <div class="content">
-                    <h2><i class="fas fa-comments"></i> Interaction-Based Theories</h2>
-                    <span class="theorist">Michael Long & Merrill Swain</span>
-                    <p>Interaction-based theories emphasized that language learning occurs primarily through meaningful communication.</p>
-                    
-                    <p><strong>Long's Interaction Hypothesis:</strong> Learners acquire language more effectively when they encounter communication problems and work together to resolve them, receiving comprehensible input in the process.</p>
-                    
-                    <div class="example-box">
-                        <div class="example-title">Interaction Example:</div>
-                        <p>Two students trying to describe a picture to each other in the target language may correct each other's mistakes or ask for clarification, which helps them notice new language forms.</p>
-                    </div>
-                    
-                    <p><strong>Swain's Output Hypothesis:</strong> Producing language helps learners recognize gaps in their knowledge and internalize grammar.</p>
-                    
-                    <div class="example-box">
-                        <div class="example-title">Output Example:</div>
-                        <p>A student giving a short presentation in the second language might realize they don't know the correct past-tense form and then seek help or self-correct.</p>
-                    </div>
-                    
-                    <p>These examples show that active, social interaction promotes deeper language learning.</p>
-                </div>
+                <i class="fas fa-users"></i> Zebeir Ahmed & Labiad Hibat Allah Amina
             </div>
         </div>
         
-        <footer>
-            <h2>Conclusion</h2>
-            <div class="conclusion">
-                <p>The development of second language acquisition research shows a clear evolution from behaviorist views focused on imitation and reinforcement, to cognitive and constructivist perspectives emphasizing mental processes, active learning, and social interaction.</p>
-                <p>Chomsky's Universal Grammar challenged behaviorism by highlighting innate linguistic knowledge, while Piaget and Vygotsky stressed cognitive development and social context. Krashen's and interaction-based hypotheses further demonstrated that meaningful input, output, and collaborative communication are essential for effective acquisition.</p>
-                <p>Overall, these theories reveal that second language learning is a complex process involving cognitive, social, and emotional factors, with active engagement and authentic use of language at its core.</p>
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+            <button class="nav-btn active" data-target="intro">
+                <i class="fas fa-home"></i> Intro
+            </button>
+            <button class="nav-btn" data-target="behaviorism">
+                <i class="fas fa-redo"></i> Behaviorism
+            </button>
+            <button class="nav-btn" data-target="universal">
+                <i class="fas fa-brain"></i> UG
+            </button>
+            <button class="nav-btn" data-target="cognitivism">
+                <i class="fas fa-cogs"></i> Cognitivism
+            </button>
+            <button class="nav-btn" data-target="constructivism">
+                <i class="fas fa-hands-helping"></i> Constructivism
+            </button>
+        </div>
+        
+        <div class="nav-menu">
+            <button class="nav-btn" data-target="krashen">
+                <i class="fas fa-lightbulb"></i> Krashen
+            </button>
+            <button class="nav-btn" data-target="interaction">
+                <i class="fas fa-comments"></i> Interaction
+            </button>
+            <button class="nav-btn" data-target="conclusion-section">
+                <i class="fas fa-flag-checkered"></i> Conclusion
+            </button>
+        </div>
+        
+        <!-- Timeline Indicator -->
+        <div class="timeline-indicator">
+            <div class="timeline-dot active" data-target="intro"></div>
+            <div class="timeline-dot" data-target="behaviorism"></div>
+            <div class="timeline-dot" data-target="universal"></div>
+            <div class="timeline-dot" data-target="cognitivism"></div>
+            <div class="timeline-dot" data-target="constructivism"></div>
+            <div class="timeline-dot" data-target="krashen"></div>
+            <div class="timeline-dot" data-target="interaction"></div>
+            <div class="timeline-dot" data-target="conclusion-section"></div>
+        </div>
+        
+        <!-- Content Sections -->
+        <!-- Introduction -->
+        <section id="intro" class="section active">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="section-title-text">Introduction</div>
             </div>
-        </footer>
-    </div>
-    
-    <script>
-        // Add subtle animation to timeline elements when they come into view
-        document.addEventListener('DOMContentLoaded', function() {
-            const eras = document.querySelectorAll('.era');
+            <div class="section-content">
+                <p>Language learning has always been an important part of human communication. Researchers have developed various theories to understand how people learn a second language.</p>
+                
+                <p>Key theoretical perspectives include:</p>
+                <ul>
+                    <li><strong>Behaviorism</strong> - focused on habit formation</li>
+                    <li><strong>Cognitivism</strong> - emphasized mental processing</li>
+                    <li><strong>Constructivism</strong> - highlighted active learning</li>
+                </ul>
+                
+                <p>Important hypotheses include Universal Grammar, Input Hypothesis, Interaction Hypothesis, Output Hypothesis, and Affective Filter Hypothesis.</p>
+            </div>
+        </section>
+        
+        <!-- Behaviorism -->
+        <section id="behaviorism" class="section behaviorism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-redo"></i>
+                </div>
+                <div class="section-title-text">Behaviorism</div>
+            </div>
+            <div class="section-year">1940s-1950s</div>
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+            <div class="section-content">
+                <span class="theorist">B.F. Skinner (1957)</span>
+                <p>Skinner equated language learning to verbal behavior. He believed language acquisition can be observed like any other behavior, not by explaining mental systems.</p>
+                
+                <p>Children are born with a "blank slate" (tabula rasa) and acquire language through stimuli and conditioned responses via reinforcement.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> Behaviorist Example
+                    </div>
+                    <ul>
+                        <li>Child hears "I want milk" repeatedly</li>
+                        <li>Child says "I want milk"</li>
+                        <li>Adult gives milk (positive reinforcement)</li>
+                        <li>Learning happens through repetition and reward</li>
+                    </ul>
+                </div>
+                
+                <p>This view was challenged by Noam Chomsky in the 1950s-1960s, who argued behaviorism couldn't explain how children create new, grammatically correct sentences they've never heard before.</p>
+            </div>
+        </section>
+        
+        <!-- Universal Grammar -->
+        <section id="universal" class="section universal">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="section-title-text">Universal Grammar</div>
+            </div>
+            <div class="section-year">1950s-1960s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Noam Chomsky</span>
+                <p>Chomsky proposed humans are born with an innate Universal Grammar (UG) — a biological blueprint containing basic principles common to all languages.</p>
+                
+                <p>Children don't learn language solely from experience; they activate and adjust UG parameters based on the language they're exposed to.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> UG Example
+                    </div>
+                    <ul>
+                        <li>Child hears "The dog chased the cat" once</li>
+                        <li>Later, they correctly say "The cat chased the dog" without being taught</li>
+                        <li>Shows understanding of grammar rules and ability to create new sentences</li>
+                    </ul>
+                </div>
+                
+                <p>This forms the foundation of Generative Grammar, focusing on rules that allow humans to generate infinite sentences from finite elements.</p>
+            </div>
+        </section>
+        
+        <!-- Cognitivism -->
+        <section id="cognitivism" class="section cognitivism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="section-title-text">Cognitivism</div>
+            </div>
+            <div class="section-year">1960s-1970s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Jean Piaget</span>
+                <p>Piaget placed language acquisition within cognitive development. A child must understand a concept before acquiring the language form that expresses it.</p>
+                
+                <p>Four stages of cognitive development:</p>
+                <ul>
+                    <li><strong>Pre-language stage</strong> (3-10 months): Cooing and babbling</li>
+                    <li><strong>Holophrastic stage</strong> (12-18 months): Single words</li>
+                    <li><strong>Two-word stage</strong> (18-20 months): Two-word combinations</li>
+                    <li><strong>Telegraphic speech</strong> (before age 3): Short, simple sentences</li>
+                </ul>
+                
+                <p>Children's language reflects the development of their logical thinking and reasoning skills.</p>
+            </div>
+        </section>
+        
+        <!-- Constructivism -->
+        <section id="constructivism" class="section constructivism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="section-title-text">Constructivism</div>
+            </div>
+            <div class="section-year">1970s-1980s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Lev Vygotsky & Jerome Bruner</span>
+                <p>Constructivism emerged as a reaction against behaviorism, emphasizing that learners actively construct knowledge using prior experiences.</p>
+                
+                <p>Vygotsky highlighted the social nature of learning, introducing the <strong>Zone of Proximal Development (ZPD)</strong> — learners achieve more with guidance than alone.</p>
+                
+                <p>Bruner promoted discovery learning, encouraging learners to explore language rules themselves rather than relying solely on explicit instruction.</p>
+                
+                <p>Classrooms began focusing on authentic tasks: role-plays, dialogues, and project-based activities.</p>
+            </div>
+        </section>
+        
+        <!-- Krashen's Hypotheses -->
+        <section id="krashen" class="section krashen">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="section-title-text">Krashen's Hypotheses</div>
+            </div>
+            <div class="section-year">1970s-1980s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Stephen Krashen</span>
+                <p>Krashen proposed influential hypotheses focusing on the difference between acquiring a language naturally and learning it formally.</p>
+                
+                <div class="hypotheses-container">
+                    <div class="hypothesis-card">
+                        <h3>Acquisition-Learning</h3>
+                        <p>Acquisition occurs subconsciously through communication; learning is conscious study of rules.</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Monitor Hypothesis</h3>
+                        <p>Learned knowledge acts as a monitor to correct language output.</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Input Hypothesis</h3>
+                        <p>Learners progress with comprehensible input slightly beyond their level (i+1).</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Natural Order</h3>
+                        <p>Language features are acquired in a predictable sequence.</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Affective Filter</h3>
+                        <p>Emotions, motivation, and anxiety facilitate or block language acquisition.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Interaction-Based Theories -->
+        <section id="interaction" class="section interaction">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="section-title-text">Interaction Theories</div>
+            </div>
+            <div class="section-year">1980s-1990s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Michael Long & Merrill Swain</span>
+                <p>Interaction-based theories emphasize that language learning occurs primarily through meaningful communication.</p>
+                
+                <p><strong>Long's Interaction Hypothesis:</strong> Learners acquire language more effectively when they encounter communication problems and work together to resolve them.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> Interaction Example
+                    </div>
+                    <p>Two students describing a picture in the target language may correct each other's mistakes or ask for clarification, helping them notice new language forms.</p>
+                </div>
+                
+                <p><strong>Swain's Output Hypothesis:</strong> Producing language helps learners recognize gaps in knowledge and internalize grammar.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> Output Example
+                    </div>
+                    <p>A student giving a presentation might realize they don't know the correct past-tense form and then seek help or self-correct.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section id="conclusion-section" class="section conclusion-section">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div class="section-title-text">Conclusion</div>
+            </div>
+            
+            <div class="conclusion">
+                <h2>Key Takeaways</h2>
+                <p>SLA research shows evolution from behaviorist views (imitation/reinforcement) to cognitive and constructivist perspectives (mental processes, active learning, social interaction).</p>
+                
+                <p>Chomsky's UG challenged behaviorism by highlighting innate linguistic knowledge. Piaget and Vygotsky stressed cognitive development and social context.</p>
+                
+                <p>Krashen's and interaction-based hypotheses show that meaningful input, output, and collaborative communication are essential for effective acquisition.</p>
+                
+                <p>Second language learning is a complex process involving cognitive, social, and emotional factors, with active engagement at its core.</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>SLA Research Presentation • Mobile-Optimized • 2023</p>
+            <p>Tap buttons above to navigate through theories</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const navBtns = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.section');
+            const timelineDots = document.querySelectorAll('.timeline-dot');
+            
+            // Function to show a specific section
+            function showSection(targetId) {
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+                
+                // Update active navigation button
+                navBtns.forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
                     }
                 });
-            }, { threshold: 0.1 });
+                
+                // Update timeline dots
+                timelineDots.forEach(dot => {
+                    if (dot.getAttribute('data-target') === targetId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // Scroll to top of the section
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
             
-            eras.forEach(era => {
-                era.style.opacity = '0';
-                era.style.transform = 'translateY(20px)';
-                era.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(era);
+            // Add click events to navigation buttons
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
             });
+            
+            // Add click events to timeline dots
+            timelineDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+            
+            // Swipe functionality for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const sectionOrder = [
+                'intro', 'behaviorism', 'universal', 'cognitivism', 
+                'constructivism', 'krashen', 'interaction', 'conclusion-section'
+            ];
+            
+            document.addEventListener('touchstart', function(event) {
+                touchStartX = event.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', function(event) {
+                touchEndX = event.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50; // Minimum swipe distance
+                
+                if (Math.abs(touchEndX - touchStartX) < swipeThreshold) {
+                    return; // Not a significant swipe
+                }
+                
+                // Find current section
+                let currentIndex = -1;
+                for (let i = 0; i < sections.length; i++) {
+                    if (sections[i].classList.contains('active')) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                
+                // Determine swipe direction and navigate
+                if (touchEndX < touchStartX && currentIndex < sectionOrder.length - 1) {
+                    // Swipe left - go to next section
+                    showSection(sectionOrder[currentIndex + 1]);
+                } else if (touchEndX > touchStartX && currentIndex > 0) {
+                    // Swipe right - go to previous section
+                    showSection(sectionOrder[currentIndex - 1]);
+                }
+            }
         });
     </script>
 </body>
