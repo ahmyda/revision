@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLA Research & Methods Timeline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+            padding: 0;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            padding: 0 15px;
+            max-width: 100%;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #4a6fa5, #2c3e50);
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.7rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .header-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .presenters {
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        /* Navigation Menu */
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            padding: 15px 10px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        
+        .nav-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 10px 5px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #2c3e50;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-align: center;
+            height: 65px;
+        }
+        
+        .nav-btn.active {
+            background: #4a6fa5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 111, 165, 0.3);
+        }
+        
+        .nav-btn i {
+            font-size: 1rem;
+        }
+        
+        /* Content Sections */
+        .section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .section-title-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .section-year {
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .section-content p {
+            margin-bottom: 15px;
+        }
+        
+        .theorist {
+            color: #4a6fa5;
+            font-weight: 600;
+            font-style: italic;
+            margin: 15px 0 10px;
+            display: block;
+        }
+        
+        /* Methods Cards */
+        .methods-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .method-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border-top: 4px solid;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .method-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .method-card.tpr {
+            border-color: #3498db;
+        }
+        
+        .method-card.silent {
+            border-color: #2ecc71;
+        }
+        
+        .method-card.suggest {
+            border-color: #9b59b6;
+        }
+        
+        .method-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .method-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .method-icon.tpr {
+            background: #3498db;
+        }
+        
+        .method-icon.silent {
+            background: #2ecc71;
+        }
+        
+        .method-icon.suggest {
+            background: #9b59b6;
+        }
+        
+        .method-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .method-founder {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .method-contribution {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #4a6fa5;
+        }
+        
+        .contribution-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Examples */
+        .example-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 20px 0;
+            border-left: 4px solid #4a6fa5;
+        }
+        
+        .example-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .example-title i {
+            color: #4a6fa5;
+        }
+        
+        /* Krashen's Hypotheses Cards */
+        .hypotheses-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .hypothesis-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        
+        .hypothesis-card h3 {
+            color: #4a6fa5;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        
+        /* List Styling */
+        .section-content ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        
+        .section-content li {
+            margin-bottom: 8px;
+        }
+        
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .conclusion p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Timeline Indicator */
+        .timeline-indicator {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            padding: 10px 0;
+            margin: 15px 0;
+            scrollbar-width: none;
+        }
+        
+        .timeline-indicator::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .timeline-dot {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d1d8e0;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .timeline-dot.active {
+            background: #4a6fa5;
+            transform: scale(1.2);
+        }
+        
+        .timeline-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #7f8c8d;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eaeaea;
+            margin-top: 20px;
+        }
+        
+        /* Color coding for sections */
+        .intro .section-icon { background: #4a6fa5; }
+        .behaviorism .section-icon { background: #3498db; }
+        .universal .section-icon { background: #9b59b6; }
+        .cognitivism .section-icon { background: #2ecc71; }
+        .constructivism .section-icon { background: #e74c3c; }
+        .krashen .section-icon { background: #f39c12; }
+        .interaction .section-icon { background: #1abc9c; }
+        .methods .section-icon { background: #d35400; }
+        .conclusion-section .section-icon { background: #2c3e50; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>SLA Research & Methods</h1>
+            <div class="header-subtitle">Theories & Teaching Approaches Timeline</div>
+            <div class="presenters">
+                <i class="fas fa-users"></i> Zebeir Ahmed & Labiad Hibat Allah Amina
+            </div>
+        </div>
+        
+        <!-- Navigation Menu -->
+        <div class="nav-container">
+            <div class="nav-menu">
+                <button class="nav-btn active" data-target="intro">
+                    <i class="fas fa-home"></i>
+                    <span>Intro</span>
+                </button>
+                <button class="nav-btn" data-target="behaviorism">
+                    <i class="fas fa-redo"></i>
+                    <span>Behaviorism</span>
+                </button>
+                <button class="nav-btn" data-target="universal">
+                    <i class="fas fa-brain"></i>
+                    <span>UG</span>
+                </button>
+                <button class="nav-btn" data-target="cognitivism">
+                    <i class="fas fa-cogs"></i>
+                    <span>Cognitivism</span>
+                </button>
+                <button class="nav-btn" data-target="constructivism">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>Construct</span>
+                </button>
+                <button class="nav-btn" data-target="krashen">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Krashen</span>
+                </button>
+                <button class="nav-btn" data-target="interaction">
+                    <i class="fas fa-comments"></i>
+                    <span>Interaction</span>
+                </button>
+                <button class="nav-btn" data-target="methods">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Methods</span>
+                </button>
+            </div>
+            
+            <!-- Timeline Indicator -->
+            <div class="timeline-indicator">
+                <div class="timeline-dot active" data-target="intro" data-label="Intro"></div>
+                <div class="timeline-dot" data-target="behaviorism" data-label="Behaviorism"></div>
+                <div class="timeline-dot" data-target="universal" data-label="UG"></div>
+                <div class="timeline-dot" data-target="cognitivism" data-label="Cognitivism"></div>
+                <div class="timeline-dot" data-target="constructivism" data-label="Construct"></div>
+                <div class="timeline-dot" data-target="krashen" data-label="Krashen"></div>
+                <div class="timeline-dot" data-target="interaction" data-label="Interaction"></div>
+                <div class="timeline-dot" data-target="methods" data-label="Methods"></div>
+                <div class="timeline-dot" data-target="conclusion-section" data-label="Conclusion"></div>
+            </div>
+        </div>
+        
+        <!-- Content Sections -->
+        <!-- Introduction -->
+        <section id="intro" class="section intro active">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="section-title-text">Introduction</div>
+            </div>
+            <div class="section-content">
+                <p>Second Language Acquisition (SLA) research explores how people learn languages beyond their native tongue. This timeline shows the evolution of theories and teaching methods.</p>
+                
+                <p>Theories evolved from behaviorist approaches to cognitive, constructivist, and interactionist perspectives.</p>
+                
+                <p>Teaching methods like TPR, Silent Way, and Suggestopedia emerged from these theoretical foundations, applying principles to classroom practice.</p>
+            </div>
+        </section>
+        
+        <!-- Behaviorism -->
+        <section id="behaviorism" class="section behaviorism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-redo"></i>
+                </div>
+                <div class="section-title-text">Behaviorism</div>
+            </div>
+            <div class="section-year">1940s-1950s</div>
+            
+            <div class="section-content">
+                <span class="theorist">B.F. Skinner (1957)</span>
+                <p>Language learning as habit formation through stimulus-response-reinforcement. Children acquire language through imitation and reinforcement of correct forms.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> Key Principle
+                    </div>
+                    <p>Learning occurs through repetition, imitation, and positive/negative reinforcement of language behaviors.</p>
+                </div>
+                
+                <p>Influenced Audiolingual Method (ALM) with pattern drills and memorization exercises.</p>
+            </div>
+        </section>
+        
+        <!-- Universal Grammar -->
+        <section id="universal" class="section universal">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="section-title-text">Universal Grammar</div>
+            </div>
+            <div class="section-year">1950s-1960s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Noam Chomsky</span>
+                <p>Humans have innate language faculty (Universal Grammar) with principles common to all languages. Children don't just imitate; they generate new sentences using internal grammar rules.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> SLA Implication
+                    </div>
+                    <p>Second language learners access UG parameters, explaining why some grammatical features transfer between languages while others don't.</p>
+                </div>
+                
+                <p>Emphasized the creative, rule-governed nature of language acquisition over behaviorist imitation.</p>
+            </div>
+        </section>
+        
+        <!-- Cognitivism -->
+        <section id="cognitivism" class="section cognitivism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="section-title-text">Cognitivism</div>
+            </div>
+            <div class="section-year">1960s-1970s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Jean Piaget</span>
+                <p>Language acquisition depends on cognitive development. Children must reach certain cognitive milestones before acquiring corresponding language structures.</p>
+                
+                <p>Four stages of cognitive development correspond to language development:</p>
+                <ul>
+                    <li>Sensorimotor → Pre-linguistic sounds</li>
+                    <li>Preoperational → Vocabulary growth</li>
+                    <li>Concrete operational → Complex sentences</li>
+                    <li>Formal operational → Abstract language</li>
+                </ul>
+                
+                <p>For SLA: Learners' cognitive readiness affects what language they can process and produce.</p>
+            </div>
+        </section>
+        
+        <!-- Constructivism -->
+        <section id="constructivism" class="section constructivism">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="section-title-text">Constructivism</div>
+            </div>
+            <div class="section-year">1970s-1980s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Lev Vygotsky & Jerome Bruner</span>
+                <p>Learners actively construct knowledge through social interaction. Vygotsky's Zone of Proximal Development (ZPD): learners achieve more with expert guidance.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> SLA Application
+                    </div>
+                    <p>Collaborative tasks, peer feedback, and scaffolded instruction help learners internalize language within their ZPD.</p>
+                </div>
+                
+                <p>Emphasized social, contextual nature of learning over individual cognitive processes.</p>
+            </div>
+        </section>
+        
+        <!-- Krashen's Hypotheses -->
+        <section id="krashen" class="section krashen">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="section-title-text">Krashen's Hypotheses</div>
+            </div>
+            <div class="section-year">1970s-1980s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Stephen Krashen</span>
+                <p>Five hypotheses explaining natural language acquisition vs. formal learning:</p>
+                
+                <div class="hypotheses-container">
+                    <div class="hypothesis-card">
+                        <h3>Acquisition-Learning</h3>
+                        <p>Subconscious acquisition through meaningful use vs. conscious learning of rules.</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Input (i+1)</h3>
+                        <p>Comprehensible input slightly above current level drives acquisition.</p>
+                    </div>
+                    
+                    <div class="hypothesis-card">
+                        <h3>Affective Filter</h3>
+                        <p>Low anxiety, high motivation facilitate acquisition; high anxiety blocks it.</p>
+                    </div>
+                </div>
+                
+                <p>Influenced Natural Approach and communicative language teaching.</p>
+            </div>
+        </section>
+        
+        <!-- Interaction-Based Theories -->
+        <section id="interaction" class="section interaction">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="section-title-text">Interaction Theories</div>
+            </div>
+            <div class="section-year">1980s-1990s</div>
+            
+            <div class="section-content">
+                <span class="theorist">Michael Long & Merrill Swain</span>
+                <p>Language acquisition occurs through negotiated interaction. When communication breaks down, learners notice gaps and adjust their language.</p>
+                
+                <p><strong>Long's Interaction Hypothesis:</strong> Modified interaction (clarification requests, comprehension checks) makes input comprehensible.</p>
+                
+                <p><strong>Swain's Output Hypothesis:</strong> Producing language pushes learners to process syntax and morphology deeply.</p>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-example-circle"></i> Classroom Practice
+                    </div>
+                    <p>Information-gap activities, jigsaw tasks, and collaborative projects create opportunities for negotiated interaction.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Teaching Methods -->
+        <section id="methods" class="section methods">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="section-title-text">Teaching Methods in SLA</div>
+            </div>
+            <div class="section-year">1960s-1970s</div>
+            
+            <div class="section-content">
+                <p>These humanistic methods emerged as alternatives to grammar-translation and audiolingual approaches, applying SLA theories to practical teaching.</p>
+                
+                <div class="methods-container">
+                    <!-- TPR Card -->
+                    <div class="method-card tpr">
+                        <div class="method-title">
+                            <div class="method-icon tpr">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <div>
+                                <div class="method-name">Total Physical Response (TPR)</div>
+                                <div class="method-founder">James Asher (1960s)</div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>Approach:</strong> Learners respond to commands with physical actions before speaking. Based on how children acquire L1: listening before speaking.</p>
+                        
+                        <div class="method-contribution">
+                            <div class="contribution-title">
+                                <i class="fas fa-check-circle"></i> SLA Contributions
+                            </div>
+                            <ul>
+                                <li>Reduces anxiety through physical activity</li>
+                                <li>Develops listening comprehension before production</li>
+                                <li>Embodies Krashen's "silent period" concept</li>
+                                <li>Lowers affective filter through game-like activities</li>
+                                <li>Connects language to meaningful physical actions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Silent Way Card -->
+                    <div class="method-card silent">
+                        <div class="method-title">
+                            <div class="method-icon silent">
+                                <i class="fas fa-volume-mute"></i>
+                            </div>
+                            <div>
+                                <div class="method-name">Silent Way</div>
+                                <div class="method-founder">Caleb Gattegno (1970s)</div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>Approach:</strong> Teacher says little; learners discover language through problem-solving with Cuisenaire rods and charts. Emphasizes learner autonomy.</p>
+                        
+                        <div class="method-contribution">
+                            <div class="contribution-title">
+                                <i class="fas fa-check-circle"></i> SLA Contributions
+                            </div>
+                            <ul>
+                                <li>Promotes discovery learning (Bruner)</li>
+                                <li>Develops learner independence and self-correction</li>
+                                <li>Focuses on pronunciation and structural patterns</li>
+                                <li>Encourages hypothesis testing about language</li>
+                                <li>Minimal teacher talk maximizes student production</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Suggestopedia Card -->
+                    <div class="method-card suggest">
+                        <div class="method-title">
+                            <div class="method-icon suggest">
+                                <i class="fas fa-couch"></i>
+                            </div>
+                            <div>
+                                <div class="method-name">Suggestopedia</div>
+                                <div class="method-founder">Georgi Lozanov (1970s)</div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>Approach:</strong> Uses relaxation, music, and positive suggestion to tap into learners' mental reserves. Creates "infantilization" for stress-free learning.</p>
+                        
+                        <div class="method-contribution">
+                            <div class="contribution-title">
+                                <i class="fas fa-check-circle"></i> SLA Contributions
+                            </div>
+                            <ul>
+                                <li>Directly addresses Krashen's Affective Filter</li>
+                                <li>Uses relaxation to enhance memory retention</li>
+                                <li>Integrates arts (music, drama) into language learning</li>
+                                <li>Creates positive, confident learning environment</li>
+                                <li>Demonstrates importance of psychological factors</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">
+                        <i class="fas fa-lightbulb"></i> Modern Legacy
+                    </div>
+                    <p>These methods influenced contemporary approaches: TPR elements appear in young learner classes; Silent Way principles inform learner autonomy; Suggestopedia techniques survive in mindfulness and positive psychology approaches to language teaching.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conclusion -->
+        <section id="conclusion-section" class="section conclusion-section">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+                <div class="section-title-text">Conclusion</div>
+            </div>
+            
+            <div class="conclusion">
+                <h2>SLA: From Theory to Practice</h2>
+                <p>The evolution of SLA theories shows a shift from behaviorist habit-formation to cognitive, social, and affective perspectives on language learning.</p>
+                
+                <p>Teaching methods like TPR, Silent Way, and Suggestopedia translated theoretical insights into classroom practices:</p>
+                
+                <ul style="text-align: left; padding-left: 20px; margin: 15px 0;">
+                    <li><strong>TPR</strong> applies natural acquisition order and reduces anxiety</li>
+                    <li><strong>Silent Way</strong> promotes discovery learning and autonomy</li>
+                    <li><strong>Suggestopedia</strong> addresses affective factors in acquisition</li>
+                </ul>
+                
+                <p>Modern SLA recognizes that effective language teaching integrates insights from multiple theories, addressing cognitive, social, and emotional dimensions of learning.</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>SLA Research & Teaching Methods • Mobile-Optimized</p>
+            <p>Tap buttons to navigate • Swipe left/right between sections</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const navBtns = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.section');
+            const timelineDots = document.querySelectorAll('.timeline-dot');
+            
+            // Function to show a specific section
+            function showSection(targetId) {
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                document.getElementById(targetId).classList.add('active');
+                
+                // Update active navigation button
+                navBtns.forEach(btn => {
+                    if (btn.getAttribute('data-target') === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Update timeline dots
+                timelineDots.forEach(dot => {
+                    if (dot.getAttribute('data-target') === targetId) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // Scroll to top of the section
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            // Add click events to navigation buttons
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+            
+            // Add click events to timeline dots
+            timelineDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    showSection(targetId);
+                });
+            });
+            
+            // Swipe functionality for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const sectionOrder = [
+                'intro', 'behaviorism', 'universal', 'cognitivism', 
+                'constructivism', 'krashen', 'interaction', 'methods', 'conclusion-section'
+            ];
+            
+            document.addEventListener('touchstart', function(event) {
+                touchStartX = event.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', function(event) {
+                touchEndX = event.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (Math.abs(touchEndX - touchStartX) < swipeThreshold) {
+                    return;
+                }
+                
+                // Find current section
+                let currentIndex = -1;
+                for (let i = 0; i < sections.length; i++) {
+                    if (sections[i].classList.contains('active')) {
+                        currentIndex = i;
+                        break;
+                    }
+                }
+                
+                // Determine swipe direction and navigate
+                if (touchEndX < touchStartX && currentIndex < sectionOrder.length - 1) {
+                    // Swipe left - go to next section
+                    showSection(sectionOrder[currentIndex + 1]);
+                } else if (touchEndX > touchStartX && currentIndex > 0) {
+                    // Swipe right - go to previous section
+                    showSection(sectionOrder[currentIndex - 1]);
+                }
+            }
+            
+            // Auto-scroll timeline indicator to active dot
+            function scrollTimelineToActive() {
+                const activeDot = document.querySelector('.timeline-dot.active');
+                if (activeDot) {
+                    const container = document.querySelector('.timeline-indicator');
+                    const dotLeft = activeDot.offsetLeft;
+                    const containerWidth = container.offsetWidth;
+                    
+                    container.scrollTo({
+                        left: dotLeft - containerWidth / 2 + 10,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Update timeline scroll when section changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.attributeName === 'class') {
+                        scrollTimelineToActive();
+                    }
+                });
+            });
+            
+            timelineDots.forEach(dot => {
+                observer.observe(dot, { attributes: true });
+            });
+        });
+    </script>
+</body>
+</html>
