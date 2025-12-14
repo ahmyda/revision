@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Methodology in Didactics | Digital Handbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3, #7209b7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(76, 201, 240, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(67, 97, 238, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        .module-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 280px;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .nav-container.active {
+            transform: translateX(0);
+        }
+        
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .nav-overlay.active {
+            display: block;
+        }
+        
+        .close-nav {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        .nav-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: #f1f5f9;
+            border-radius: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: white;
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Progress Tracker */
+        .progress-tracker {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            overflow-x: auto;
+            gap: 0.5rem;
+        }
+        
+        .progress-step {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            padding: 0.75rem 0.5rem;
+            border-radius: 10px;
+            background: #f8fafc;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .progress-step.completed {
+            background: #e0f2fe;
+            color: var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50%;
+            line-height: 28px;
+            margin-right: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .progress-step.active .step-number {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .progress-step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        
+        /* Lecture Cards */
+        .lecture-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .lecture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .lecture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .lecture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .lecture-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .lecture-title i {
+            color: var(--accent);
+        }
+        
+        .lecture-badge {
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Content Elements */
+        .content-block {
+            margin: 1.5rem 0;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 1.25rem;
+        }
+        
+        h4 {
+            color: var(--secondary);
+            margin: 1.25rem 0 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .definition {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.25rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-left: 4px solid var(--success);
+            padding: 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.25rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .example-box::before {
+            content: "EXAMPLE";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--success);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0 0 0 10px;
+            font-weight: 600;
+        }
+        
+        .question-box {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.25rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-box::before {
+            content: "REFLECTION";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--warning);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0 0 0 10px;
+            font-weight: 600;
+        }
+        
+        .steps-box {
+            background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin: 1.25rem 0;
+            border: 1px solid #ddd6fe;
+        }
+        
+        /* Tables */
+        .responsive-table {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        thead {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s;
+        }
+        
+        tbody tr:hover {
+            background: #f1f5f9;
+        }
+        
+        td {
+            padding: 1rem;
+        }
+        
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .tag.quantitative {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+        
+        .tag.qualitative {
+            background: #f0f9ff;
+            color: #0c4a6e;
+        }
+        
+        .tag.mixed {
+            background: #f5f3ff;
+            color: #5b21b6;
+        }
+        
+        /* Connection Visual */
+        .lecture-connection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            padding: 1rem;
+        }
+        
+        .connection-line {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            position: relative;
+        }
+        
+        .connection-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .connection-text {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .summary-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: left;
+        }
+        
+        .summary-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+            
+            .progress-tracker {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .progress-step {
+                min-width: 100%;
+                text-align: left;
+                padding: 1rem;
+            }
+            
+            .lecture-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .lecture-card {
+                padding: 1.5rem;
+            }
+            
+            .connection-text {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1rem 0.75rem;
+            }
+            
+            .lecture-card {
+                padding: 1.25rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Interactive Elements */
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(76, 201, 240, 0.2) 0%, rgba(76, 201, 240, 0) 100%);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .checkpoint {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .checkpoint h4 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .checkpoint-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .checkpoint-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        /* Completion Animation */
+        .completed-animation {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1001;
+            animation: popIn 0.5s ease;
+        }
+        
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <div>
+                    <div>Research Methodology</div>
+                    <div class="module-info">Master 1 - Didactics</div>
+                </div>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    
+    <!-- Navigation Menu -->
+    <nav class="nav-container" id="navContainer">
+        <button class="close-nav" id="closeNav">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3 class="nav-title"><i class="fas fa-map"></i> Course Navigation</h3>
+        <ul class="nav-links">
+            <li><a href="#lecture01" class="nav-link active"><i class="fas fa-search"></i> Lecture 1: Research Foundations</a></li>
+            <li><a href="#lecture02" class="nav-link"><i class="fas fa-chart-line"></i> Lecture 2: Approaches & Methods</a></li>
+            <li><a href="#lecture04" class="nav-link"><i class="fas fa-footsteps"></i> Lecture 4: Research Steps</a></li>
+            <li><a href="#lecture08" class="nav-link"><i class="fas fa-globe"></i> Lecture 8: Worldviews</a></li>
+            <li><a href="#lecture09" class="nav-link"><i class="fas fa-database"></i> Lecture 9: Data Tools</a></li>
+            <li><a href="#lecture01b" class="nav-link"><i class="fas fa-shapes"></i> Lecture 1B: Research Types</a></li>
+            <li><a href="#summary" class="nav-link"><i class="fas fa-trophy"></i> Course Summary</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <div class="progress-step active" id="step1">
+                <span class="step-number">1</span> Foundations
+            </div>
+            <div class="progress-step" id="step2">
+                <span class="step-number">2</span> Approaches
+            </div>
+            <div class="progress-step" id="step3">
+                <span class="step-number">3</span> Process
+            </div>
+            <div class="progress-step" id="step4">
+                <span class="step-number">4</span> Philosophy
+            </div>
+            <div class="progress-step" id="step5">
+                <span class="step-number">5</span> Data Tools
+            </div>
+            <div class="progress-step" id="step6">
+                <span class="step-number">6</span> Research Types
+            </div>
+        </div>
+        
+        <!-- Lecture 1 -->
+        <section class="lecture-card" id="lecture01">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-search"></i> Research Components in Didactics</h2>
+                <span class="lecture-badge"><i class="fas fa-rocket"></i> Foundation</span>
+            </div>
+            
+            <div class="content-block">
+                <p>In didactics, research focuses on <span class="highlight">teaching and learning processes</span>, aiming to improve educational outcomes through evidence-based strategies.</p>
+            </div>
+            
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Didactics Focus</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Research Problem</strong></td>
+                            <td>Teaching challenges, learning gaps, engagement issues</td>
+                            <td>Why do learners struggle with speaking activities?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Research Questions</strong></td>
+                            <td>Practical, process-oriented, open-ended</td>
+                            <td>What factors hinder oral participation?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hypotheses</strong></td>
+                            <td>Predict relationships between teaching variables</td>
+                            <td>Peer feedback improves writing more than teacher feedback</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Problem Statement</strong></td>
+                            <td>Contextualizes challenge and significance</td>
+                            <td>"Despite years of instruction, students avoid speaking due to anxiety..."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Didactics Research Scenario</h4>
+                <p><strong>Topic:</strong> Enhancing vocabulary retention through gamification</p>
+                <div class="tags-container">
+                    <span class="tag"><i class="fas fa-gamepad"></i> Gamification</span>
+                    <span class="tag"><i class="fas fa-brain"></i> Cognitive Load</span>
+                    <span class="tag"><i class="fas fa-chart-bar"></i> Quantitative</span>
+                    <span class="tag"><i class="fas fa-comments"></i> Qualitative</span>
+                </div>
+                <p><strong>Research Question:</strong> How does gamified vocabulary instruction affect long-term retention compared to traditional methods?</p>
+            </div>
+            
+            <div class="checkpoint">
+                <h4><i class="fas fa-flag-checkered"></i> Checkpoint 1: Research Foundation</h4>
+                <p>Can you identify a research problem in your teaching context?</p>
+                <button class="checkpoint-btn" onclick="showCheckpoint(1)">
+                    <i class="fas fa-pencil-alt"></i> Start Reflection
+                </button>
+            </div>
+        </section>
+        
+        <!-- Connection 1 -->
+        <div class="lecture-connection">
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 25%;"></div>
+            </div>
+            <div class="connection-text">
+                <i class="fas fa-arrow-right"></i> From Problem to Approach
+            </div>
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 75%;"></div>
+            </div>
+        </div>
+        
+        <!-- Lecture 2 -->
+        <section class="lecture-card" id="lecture02">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-chart-line"></i> Quantitative, Qualitative & Mixed Methods</h2>
+                <span class="lecture-badge"><i class="fas fa-balance-scale"></i> Methodology</span>
+            </div>
+            
+            <div class="definition">
+                <i class="fas fa-info-circle"></i> The choice between approaches should be rationalized based on research questions (Drake & Heath, 2011).
+            </div>
+            
+            <h3><i class="fas fa-compare"></i> Comparing Approaches</h3>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Qualitative</th>
+                            <th>Quantitative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Goal</strong></td>
+                            <td>Understand experiences</td>
+                            <td>Measure variables</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data</strong></td>
+                            <td>Words, observations</td>
+                            <td>Numbers, statistics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analysis</strong></td>
+                            <td>Thematic, interpretive</td>
+                            <td>Statistical, inferential</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Didactics Example</strong></td>
+                            <td>Interviewing teachers about challenges</td>
+                            <td>Testing a new method's effectiveness</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3><i class="fas fa-puzzle-piece"></i> Mixed Methods & Triangulation</h3>
+            <div class="steps-box">
+                <p><strong>Mixed Methods:</strong> Combining both approaches for comprehensive insights.</p>
+                <p><strong>Triangulation:</strong> Using multiple methods to study the same phenomenon (Kadushin et al., 2008).</p>
+            </div>
+            
+            <div class="example-box">
+                <h4><i class="fas fa-laptop-code"></i> Real Didactics Study</h4>
+                <p><strong>Topic:</strong> Student engagement in online language learning</p>
+                <div class="tags-container">
+                    <span class="tag quantitative"><i class="fas fa-calculator"></i> Quantitative</span>
+                    <span class="tag qualitative"><i class="fas fa-comment-dots"></i> Qualitative</span>
+                    <span class="tag mixed"><i class="fas fa-blender"></i> Mixed Methods</span>
+                </div>
+                <p><strong>Design:</strong></p>
+                <ol>
+                    <li><strong>Quantitative:</strong> Survey (engagement metrics, time spent)</li>
+                    <li><strong>Qualitative:</strong> Focus groups (emotional experiences)</li>
+                    <li><strong>Triangulation:</strong> Compare datasets for comprehensive understanding</li>
+                </ol>
+            </div>
+            
+            <div class="question-box">
+                <h4><i class="fas fa-question-circle"></i> Reflection Questions</h4>
+                <p>1. When would you choose qualitative over quantitative in didactics research?</p>
+                <p>2. How can triangulation strengthen a study on teacher burnout?</p>
+            </div>
+        </section>
+        
+        <!-- Connection 2 -->
+        <div class="lecture-connection">
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 15%;"></div>
+            </div>
+            <div class="connection-text">
+                <i class="fas fa-shoe-prints"></i> The Research Journey
+            </div>
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 85%;"></div>
+            </div>
+        </div>
+        
+        <!-- Lecture 4 -->
+        <section class="lecture-card" id="lecture04">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-footsteps"></i> The Research Process</h2>
+                <span class="lecture-badge"><i class="fas fa-road"></i> Step-by-Step</span>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <div style="display: inline-block; background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary); margin-bottom: 1rem;"><i class="fas fa-project-diagram"></i> Research Process Flow</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; text-align: left;">
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>1. Identify Problem</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Find research gap</div>
+                        </div>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>2. Literature Review</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Existing knowledge</div>
+                        </div>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>3. Design Study</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Methodology plan</div>
+                        </div>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>4. Collect Data</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Gather evidence</div>
+                        </div>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>5. Analyze</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Process data</div>
+                        </div>
+                        <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                            <strong>6. Report</strong>
+                            <div style="font-size: 0.8rem; color: #64748b;">Share findings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-tasks"></i> Key Steps Explained</h3>
+            
+            <div class="steps-box">
+                <h4>1. Identifying Research Problems</h4>
+                <p>Start from broad interest → Narrow to specific, researchable question.</p>
+                <div class="example-box" style="margin: 1rem 0;">
+                    <strong>Example:</strong> "Online teaching during COVID-19" → "Effectiveness of synchronous vs asynchronous methods for vocabulary retention"
+                </div>
+            </div>
+            
+            <div class="steps-box">
+                <h4>2. Literature Review</h4>
+                <p>Not just summary—critical synthesis that identifies gaps and informs methodology.</p>
+            </div>
+            
+            <div class="steps-box">
+                <h4>3. Research Design</h4>
+                <p>"Arrangement of conditions for collection and analysis of data" (Claire Selltiz, 1960).</p>
+            </div>
+            
+            <div class="checkpoint">
+                <h4><i class="fas fa-flag-checkered"></i> Checkpoint 2: Your Research Plan</h4>
+                <p>What step of the research process do you find most challenging?</p>
+                <button class="checkpoint-btn" onclick="showCheckpoint(2)">
+                    <i class="fas fa-map-marked-alt"></i> Plan Your Study
+                </button>
+            </div>
+        </section>
+        
+        <!-- Connection 3 -->
+        <div class="lecture-connection">
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 40%;"></div>
+            </div>
+            <div class="connection-text">
+                <i class="fas fa-eye"></i> Philosophical Lens
+            </div>
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 60%;"></div>
+            </div>
+        </div>
+        
+        <!-- Lecture 8 -->
+        <section class="lecture-card" id="lecture08">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-globe"></i> Philosophy of Research (Worldviews)</h2>
+                <span class="lecture-badge"><i class="fas fa-brain"></i> Paradigms</span>
+            </div>
+            
+            <div class="definition">
+                <i class="fas fa-compass"></i> A worldview is "a basic set of beliefs that guide action" — your philosophical lens shapes how you see and study educational phenomena.
+            </div>
+            
+            <h3><i class="fas fa-filter"></i> Research Worldviews</h3>
+            
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Worldview</th>
+                            <th>Core Belief</th>
+                            <th>Didactics Application</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Positivism</strong></td>
+                            <td>Objective, measurable reality</td>
+                            <td>Testing teaching methods with experiments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interpretivism</strong></td>
+                            <td>Socially constructed knowledge</td>
+                            <td>Understanding student experiences</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Critical Theory</strong></td>
+                            <td>Power, inequality, change</td>
+                            <td>Examining educational equity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pragmatism</strong></td>
+                            <td>Practical problem-solving</td>
+                            <td>Solving classroom challenges</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constructivism</strong></td>
+                            <td>Multiple constructed realities</td>
+                            <td>How learners build knowledge</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="example-box">
+                <h4><i class="fas fa-user-graduate"></i> Worldview in Action</h4>
+                <p><strong>Research Topic:</strong> Student anxiety in language learning</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                    <div style="flex: 1; min-width: 200px; background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Positivist Approach:</strong><br>
+                        <small>Measure anxiety levels with surveys, test interventions</small>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Interpretivist Approach:</strong><br>
+                        <small>Interview students about their lived experiences</small>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Critical Approach:</strong><br>
+                        <small>Examine how assessment systems create anxiety</small>
+                    </div>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-cogs"></i> Connecting Worldview to Design</h3>
+            <div style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); padding: 1.5rem; border-radius: 15px; margin: 1.5rem 0;">
+                <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="background: var(--primary); color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 0.5rem;">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <strong>Worldview</strong>
+                    </div>
+                    <i class="fas fa-arrow-right" style="color: var(--accent);"></i>
+                    <div style="text-align: center;">
+                        <div style="background: var(--secondary); color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 0.5rem;">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <strong>Research Design</strong>
+                    </div>
+                    <i class="fas fa-arrow-right" style="color: var(--accent);"></i>
+                    <div style="text-align: center;">
+                        <div style="background: var(--accent); color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 0.5rem;">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <strong>Methods</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Connection 4 -->
+        <div class="lecture-connection">
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 20%;"></div>
+            </div>
+            <div class="connection-text">
+                <i class="fas fa-toolbox"></i> Tools & Techniques
+            </div>
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 80%;"></div>
+            </div>
+        </div>
+        
+        <!-- Lecture 9 -->
+        <section class="lecture-card" id="lecture09">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-database"></i> Data Collection & Analysis Tools</h2>
+                <span class="lecture-badge"><i class="fas fa-toolbox"></i> Practical Tools</span>
+            </div>
+            
+            <div class="definition">
+                <i class="fas fa-tools"></i> The right tools depend on your research questions, approach, and context. Didactics research often uses mixed tools.
+            </div>
+            
+            <h3><i class="fas fa-clipboard-list"></i> Qualitative Tools</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <strong>Interviews</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Structured, semi-structured, unstructured</p>
+                </div>
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <strong>Focus Groups</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">8-10 participants, guided discussion</p>
+                </div>
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <strong>Observations</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Direct, indirect, participant</p>
+                </div>
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <strong>Case Studies</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">In-depth analysis of bounded cases</p>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-calculator"></i> Quantitative Tools</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-poll"></i>
+                    </div>
+                    <strong>Surveys</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Closed-ended questionnaires</p>
+                </div>
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <strong>Experiments</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Lab, field, natural, quasi</p>
+                </div>
+                <div style="background: white; border-radius: 10px; padding: 1.25rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+                    <div style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <strong>Tests</strong>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Pre/post tests, assessments</p>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <h4><i class="fas fa-microscope"></i> Complete Didactics Study Design</h4>
+                <p><strong>Topic:</strong> "Effect of peer feedback on writing skills in EFL classrooms"</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Data Collection:</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                            <li>Pre-test & post-test writing samples</li>
+                            <li>Feedback rubrics</li>
+                            <li>Student surveys</li>
+                            <li>Teacher interviews</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Analysis Tools:</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                            <li>SPSS for scores</li>
+                            <li>Thematic analysis for feedback</li>
+                            <li>Excel for basic stats</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f0f9ff; padding: 1rem; border-radius: 10px;">
+                        <strong>Ethical Considerations:</strong>
+                        <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                            <li>Informed consent</li>
+                            <li>Confidentiality</li>
+                            <li>Voluntary participation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="checkpoint">
+                <h4><i class="fas fa-flag-checkered"></i> Checkpoint 3: Tool Selection</h4>
+                <p>What data collection tools would you use for your research topic?</p>
+                <button class="checkpoint-btn" onclick="showCheckpoint(3)">
+                    <i class="fas fa-tools"></i> Select Your Tools
+                </button>
+            </div>
+        </section>
+        
+        <!-- Connection 5 -->
+        <div class="lecture-connection">
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 30%;"></div>
+            </div>
+            <div class="connection-text">
+                <i class="fas fa-shapes"></i> Research Typology
+            </div>
+            <div class="connection-line">
+                <div class="connection-dot" style="left: 70%;"></div>
+            </div>
+        </div>
+        
+        <!-- Lecture 1B -->
+        <section class="lecture-card" id="lecture01b">
+            <div class="lecture-header">
+                <h2 class="lecture-title"><i class="fas fa-shapes"></i> Types of Research in Didactics</h2>
+                <span class="lecture-badge"><i class="fas fa-layer-group"></i> Classification</span>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <div style="display: inline-block; position: relative;">
+                    <div style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(var(--primary) 0% 20%, var(--secondary) 20% 40%, var(--accent) 40% 60%, var(--success) 60% 80%, var(--warning) 80% 100%);"></div>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="text-align: center;">
+                            <strong style="color: var(--primary);">Research</strong><br>
+                            <strong style="color: var(--secondary);">Types</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--primary);">
+                    <h4 style="color: var(--primary);"><i class="fas fa-atom"></i> Pure Research</h4>
+                    <p style="font-size: 0.9rem;">Knowledge for its own sake, theoretical foundations.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Cognitive processes in SLA</div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--secondary);">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-tools"></i> Applied Research</h4>
+                    <p style="font-size: 0.9rem;">Solving real-world educational problems.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Testing new teaching tools</div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--accent);">
+                    <h4 style="color: var(--accent);"><i class="fas fa-chart-bar"></i> Descriptive</h4>
+                    <p style="font-size: 0.9rem;">Profiles, classifications, who/what/where.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Student demographic analysis</div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--success);">
+                    <h4 style="color: var(--success);"><i class="fas fa-link"></i> Correlational</h4>
+                    <p style="font-size: 0.9rem;">Relationships between variables.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Attendance vs. grades</div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--warning);">
+                    <h4 style="color: var(--warning);"><i class="fas fa-question-circle"></i> Explanatory</h4>
+                    <p style="font-size: 0.9rem;">Why things happen, causality.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Why method X works</div>
+                </div>
+                
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--danger);">
+                    <h4 style="color: var(--danger);"><i class="fas fa-search"></i> Exploratory</h4>
+                    <p style="font-size: 0.9rem;">New topics, initial understanding.</p>
+                    <div class="tag" style="margin-top: 0.5rem;">Example: Teachers' AI attitudes</div>
+                </div>
+            </div>
+            
+            <div class="question-box">
+                <h4><i class="fas fa-graduation-cap"></i> Final Reflection</h4>
+                <p>1. Which research type aligns with your Master's thesis interests?</p>
+                <p>2. How does understanding research types help in designing better studies?</p>
+                <p>3. What's the relationship between pure and applied research in didactics?</p>
+            </div>
+        </section>
+        
+        <!-- Summary Section -->
+        <section class="lecture-card" id="summary" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;">
+            <div class="lecture-header">
+                <h2 class="lecture-title" style="color: white;"><i class="fas fa-trophy"></i> Course Summary & Integration</h2>
+                <span class="lecture-badge" style="background: rgba(255,255,255,0.2);"><i class="fas fa-star"></i> Mastery</span>
+            </div>
+            
+            <h3 style="color: var(--accent);"><i class="fas fa-link"></i> Connecting the Lectures</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);">
+                    <h4 style="color: white;"><i class="fas fa-search"></i> Foundation → Approach</h4>
+                    <p>Your research problem determines whether you need quantitative, qualitative, or mixed methods.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);">
+                    <h4 style="color: white;"><i class="fas fa-compass"></i> Worldview → Design</h4>
+                    <p>Your philosophical beliefs shape your research design and choice of methods.</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2);">
+                    <h4 style="color: white;"><i class="fas fa-tools"></i> Design → Tools</h4>
+                    <p>Your research design dictates which data collection and analysis tools you'll use.</p>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--accent);"><i class="fas fa-check-circle"></i> The Complete Didactics Researcher</h3>
+            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; margin: 1.5rem 0;">
+                <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                    <div style="text-align: center;">
+                        <div style="background: white; color: var(--primary); width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 0.5rem; font-size: 1.5rem;">
+                            <i class="fas fa-question"></i>
+                        </div>
+                        <strong>Problem</strong>
+                    </div>
+                    <i class="fas fa-plus" style="color: var(--accent);"></i>
+                    <div style="text-align: center;">
+                        <div style="background: white; color: var(--primary); width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 0.5rem; font-size: 1.5rem;">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <strong>Worldview</strong>
+                    </div>
+                    <i class="fas fa-plus" style="color: var(--accent);"></i>
+                    <div style="text-align: center;">
+                        <div style="background: white; color: var(--primary); width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 0.5rem; font-size: 1.5rem;">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <strong>Design</strong>
+                    </div>
+                    <i class="fas fa-equals" style="color: var(--accent); font-size: 1.5rem;"></i>
+                    <div style="text-align: center;">
+                        <div style="background: var(--accent); color: white; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; margin: 0 auto 0.5rem; font-size: 2rem;">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <strong>Quality Research</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="checkpoint-btn" onclick="completeCourse()" style="background: white; color: var(--primary); font-size: 1.1rem; padding: 1rem 2rem;">
+                    <i class="fas fa-medal"></i> Complete Research Methodology Course
+                </button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 style="color: var(--accent); margin-bottom: 1.5rem;"><i class="fas fa-graduation-cap"></i> Research Methodology in Didactics</h3>
+            
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <h4><i class="fas fa-book"></i> Key Resources</h4>
+                    <ul style="list-style: none; margin-top: 0.5rem;">
+                        <li>• Creswell, J.W. (2022) Research Design</li>
+                        <li>• Kumar, R. (2011) Research Methodology</li>
+                        <li>• Mackey & Gass (2010) Second Language Research</li>
+                    </ul>
+                </div>
+                
+                <div class="summary-card">
+                    <h4><i class="fas fa-tools"></i> Essential Skills</h4>
+                    <ul style="list-style: none; margin-top: 0.5rem;">
+                        <li>• Problem identification</li>
+                        <li>• Methodology selection</li>
+                        <li>• Ethical research design</li>
+                        <li>• Data analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="summary-card">
+                    <h4><i class="fas fa-bullseye"></i> Next Steps</h4>
+                    <ul style="list-style: none; margin-top: 0.5rem;">
+                        <li>1. Identify your research interest</li>
+                        <li>2. Conduct literature review</li>
+                        <li>3. Design your study</li>
+                        <li>4. Begin your Master's thesis!</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; opacity: 0.8; font-size: 0.9rem;">
+                <i class="fas fa-university"></i> Ziane-Achour University - Djelfa | Faculty of Letters and Languages | Department of English
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Completion Animation -->
+    <div class="completed-animation" id="completionAnim">
+        <div style="font-size: 4rem; color: var(--accent);">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <h3 style="color: var(--primary); margin: 1rem 0;">Course Completed!</h3>
+        <p>You've mastered Research Methodology in Didactics</p>
+        <button class="checkpoint-btn" onclick="closeCompletion()" style="margin-top: 1.5rem;">
+            <i class="fas fa-check"></i> Continue Learning
+        </button>
+    </div>
+    
+    <script>
+        // Mobile Navigation
+        const menuToggle = document.getElementById('menuToggle');
+        const navContainer = document.getElementById('navContainer');
+        const navOverlay = document.getElementById('navOverlay');
+        const closeNav = document.getElementById('closeNav');
+        
+        menuToggle.addEventListener('click', () => {
+            navContainer.classList.add('active');
+            navOverlay.classList.add('active');
+        });
+        
+        closeNav.addEventListener('click', () => {
+            navContainer.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+        
+        navOverlay.addEventListener('click', () => {
+            navContainer.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Close mobile menu
+                navContainer.classList.remove('active');
+                navOverlay.classList.remove('active');
+                
+                // Scroll to target
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Progress tracker update on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.lecture-card');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= (sectionTop - 150)) {
+                    currentSection = section.id;
+                }
+            });
+            
+            // Update progress steps
+            progressSteps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            
+            // Mark appropriate step as active
+            if (currentSection === 'lecture01') {
+                document.getElementById('step1').classList.add('active');
+            } else if (currentSection === 'lecture02') {
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('active');
+            } else if (currentSection === 'lecture04') {
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('active');
+            } else if (currentSection === 'lecture08') {
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step4').classList.add('active');
+            } else if (currentSection === 'lecture09') {
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step4').classList.add('completed');
+                document.getElementById('step5').classList.add('active');
+            } else if (currentSection === 'lecture01b' || currentSection === 'summary') {
+                document.getElementById('step1').classList.add('completed');
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step4').classList.add('completed');
+                document.getElementById('step5').classList.add('completed');
+                document.getElementById('step6').classList.add('active');
+            }
+        });
+        
+        // Checkpoint functions
+        function showCheckpoint(checkpointNum) {
+            const questions = [
+                "Describe a research problem you've observed in your teaching context.",
+                "Which step of the research process do you find most challenging and why?",
+                "What data collection tools would be most appropriate for your research topic?"
+            ];
+            
+            const answer = prompt(`Checkpoint ${checkpointNum}: ${questions[checkpointNum-1]}\n\nType your response:`);
+            if (answer && answer.trim().length > 10) {
+                alert("Great reflection! Keep these ideas for your research proposal.");
+                // Mark checkpoint as completed
+                document.querySelectorAll('.checkpoint')[checkpointNum-1].innerHTML = `
+                    <h4><i class="fas fa-check-circle" style="color: var(--success);"></i> Checkpoint ${checkpointNum} Completed</h4>
+                    <p>Your reflection has been saved. Continue to the next section!</p>
+                `;
+            }
+        }
+        
+        // Course completion with confetti
+        function completeCourse() {
+            // Show completion animation
+            document.getElementById('completionAnim').style.display = 'block';
+            
+            // Create confetti
+            createConfetti();
+            
+            // Update progress tracker
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.add('completed');
+            });
+        }
+        
+        function closeCompletion() {
+            document.getElementById('completionAnim').style.display = 'none';
+        }
+        
+        function createConfetti() {
+            const colors = ['#4361ee', '#3a0ca3', '#4cc9f0', '#4ade80', '#fbbf24'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                
+                document.body.appendChild(confetti);
+                
+                // Animate confetti
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 10}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                });
+                
+                // Remove confetti after animation
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+        
+        // Interactive hover effects for tables
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Initialize first section as active
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
